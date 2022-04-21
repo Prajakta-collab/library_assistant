@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoMicCircleSharp } from "react-icons/io5";
@@ -94,17 +94,18 @@ const MicButton = styled.button`
 `;
 
 const ChatContainer = () => {
+const [data, setData] = useState("hi prajakta")
   return (
     <Container>
       <ProfileHeader />
 
       <MessageContainer>
         <MessageDiv>
-          <Message>Hey prajakta</Message>
+          <Message>{data}</Message>
         </MessageDiv>
-        <MessageDiv>
+        {/* <MessageDiv>
           <Message>The alchemist is at shelf no 8.</Message>
-        </MessageDiv>
+        </MessageDiv> */}
       </MessageContainer>
       <MicContainer>
         <IoMicCircleSharp
