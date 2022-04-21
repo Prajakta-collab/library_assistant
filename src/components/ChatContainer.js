@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BsMic } from "react-icons/bs";
-const micClick=()=>{
-  console.log("mic button clicked");
-  alert('mic button clicked');
+import { IoMicCircleSharp } from "react-icons/io5";
+import { AiFillCloseCircle } from "react-icons/ai";
+const onClose=()=>{
+  alert("close button clicked");
 }
+const micClick = () => {
+  console.log("mic button clicked");
+  alert("mic button clicked");
+};
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+
   flex: 4;
   background: #f6f7f8;
 `;
@@ -22,8 +27,8 @@ const ProfileHeader = styled.div`
   align-items: center;
   gap: 10px;
   font-weight: bold;
-  
-  height:56px;
+
+  height: 56px;
 `;
 
 const ProfileInfo = styled.div`
@@ -45,22 +50,20 @@ const ContactName = styled.span`
 `;
 
 const MicContainer = styled.div`
-display: flex;
-flex-direction: row;
-background: white;
-padding: 10px;
-align-items: center;
-gap: 10px;
-font-weight: bold;
-bottom:0;
-
+  display: flex;
+  flex-direction: row;
+  background: white;
+  padding: 10px;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  bottom: 0;
 `;
 const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-  background: #515151;
+  height: 100vh;
+  background: #181818;
 `;
 const MessageDiv = styled.div`
   display: flex;
@@ -93,35 +96,46 @@ const MicButton = styled.button`
 const ChatContainer = () => {
   return (
     <Container>
-      <ProfileHeader/>
-     
-  
- 
-     
-     <MessageContainer>
-<MessageDiv>
-    <Message>Hey prajakta</Message>
-   
-</MessageDiv>
-<MessageDiv>
-<Message>The alchemist is at shelf no 8.</Message>
-   
+      <ProfileHeader />
 
-   
-</MessageDiv>
-     </MessageContainer>
-     <MicContainer>
-     <BsMic
-     onClick={micClick}
-          color="white"
+      <MessageContainer>
+        <MessageDiv>
+          <Message>Hey prajakta</Message>
+        </MessageDiv>
+        <MessageDiv>
+          <Message>The alchemist is at shelf no 8.</Message>
+        </MessageDiv>
+      </MessageContainer>
+      <MicContainer>
+        <IoMicCircleSharp
+          onClick={micClick}
+          color="cornflowerblue"
           height="38px"
           width="38px"
           size="4.2em"
-          style={{ position: "absolute", bottom: "18px", right: "18px" ,cursor:'pointer',borderRadius:'50%', backgroundColor:'cornflowerblue'}}
+          style={{
+            position: "absolute",
+            bottom: "18px",
+            right: "18px",
+            cursor: "pointer",
+            borderRadius: "50%",
+            backgroundColor: "white",
+          }}
         />
-     </MicContainer>
-     
-     
+      </MicContainer>
+      <AiFillCloseCircle
+      onClick={onClose}
+        size="4.2em"
+        color="cornflowerblue"
+        style={{
+          position: "absolute",
+          bottom: "18px",
+          right: "108px",
+          cursor: "pointer",
+          borderRadius: "50%",
+          backgroundColor: "white",
+        }}
+      />
     </Container>
   );
 };

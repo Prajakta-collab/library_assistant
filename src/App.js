@@ -1,5 +1,4 @@
 import Navbar from './components/Navbar';
-import NewArrivals from './components/NewArrivals';
 import styled from "styled-components";
 import BookListContainer from './components/BookListContainer';
 import ChatContainer from './components/ChatContainer';
