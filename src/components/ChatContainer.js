@@ -3,13 +3,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoMicCircleSharp } from "react-icons/io5";
 import { AiFillCloseCircle } from "react-icons/ai";
-const onClose=()=>{
-  alert("close button clicked");
-}
-const micClick = () => {
-  console.log("mic button clicked");
-  alert("mic button clicked");
-};
+import Wave from 'wave-visualizer';
+import axios from 'axios';
+
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,23 +29,7 @@ const ProfileHeader = styled.div`
   height: 56px;
 `;
 
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  background: #ededed;
-  align-items: center;
-  gap: 10px;
-`;
 
-const ProfileImage = styled.img`
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-`;
-const ContactName = styled.span`
-  font-size: 16px;
-  color: black;
-`;
 
 const MicContainer = styled.div`
   display: flex;
@@ -65,47 +47,76 @@ const MessageContainer = styled.div`
   height: 100vh;
   background: #181818;
 `;
-const MessageDiv = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin: 5px 15px;
-`;
-const Message = styled.div`
-  background: white;
-  padding: 8px 10px;
-  border-radius: 4px;
-  max-width: 50%;
-  color: #303030;
-  font-size: 14px;
-`;
 
-const MicButton = styled.button`
-  background: transparent;
-  height: 60px;
-  width: 60px;
-  color: white;
-  padding: 1rem;
-  border: none;
-  cursor: pointer;
-  font-size: 27px;
-  border: 5px solid white;
-  border-radius: 50%;
-  padding: 10px;
-`;
+
 
 const ChatContainer = () => {
 const [data, setData] = useState("hi prajakta")
+const [started, setStarted] = useState(false)
+
+const onClose=()=>{
+  console.log("onClose clicked")
+  
+  setStarted(false);
+  
+    this.audioStream.getTracks().forEach((track) => {
+      track.stop();
+    });
+  
+  
+}
+const StartButton=()=>{
+  let wave = new Wave();
+  setStarted(true)
+
+
+  this.audioStream=navigator.mediaDevices
+  .getUserMedia({
+    audio: true,
+  })
+  .then(function (stream) {
+    wave.fromStream(stream, 'output', {
+      colors: ['red', 'white', 'blue'],
+    });
+    
+  })
+  .catch(function (err) {
+    console.log(err.message);
+  });
+  console.log(started);
+}
+
+
+const startAssistant=async()=>{
+  try{
+    const res=await axios.get('http://localhost:5000/assistant')
+    console.log("res",res)
+
+
+  }catch(err){
+console.log("err",err);
+  }
+}
+const micClick = () => {
+  console.log("mic button clicked");
+  startAssistant()
+  
+  StartButton()
+
+};
+
   return (
     <Container>
       <ProfileHeader />
 
       <MessageContainer>
-        <MessageDiv>
-          <Message>{data}</Message>
-        </MessageDiv>
-        {/* <MessageDiv>
-          <Message>The alchemist is at shelf no 8.</Message>
-        </MessageDiv> */}
+   {started?(<div id="visualizer-container" style={{position: "absolute",
+            top: "250px",
+            right: "480px",}}>
+      <canvas id="output" width="350" height="250"></canvas>
+     
+    </div>):(null)}
+        
       </MessageContainer>
       <MicContainer>
         <IoMicCircleSharp
